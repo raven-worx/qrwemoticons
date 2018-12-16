@@ -1,0 +1,14 @@
+{
+    "id": "emojione",
+    "name" : "EmojiOne Emoticons",
+    "version" : "1.0.0",
+    "author" : "raven-worx Software",
+    "url" : "http://www.raven-worx.net",
+    "copyright" : "(c)2019 raven-worx Software",
+    "description" : "Emoticon provider for EmojiOne",
+    "emoticons": {
+        "sizes" : ["64x64"],
+        "source" : "EmojiOne",
+        "sourceUrl" : "https://www.emojione.com"
+    }
+}
