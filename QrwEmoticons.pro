@@ -4,6 +4,7 @@ SUBDIRS += \
     plugin-google \
     plugin-twitter \
     plugin-emojione \
+    plugin-openmoji \
     lib
  
 # paths

@@ -4,3 +4,6 @@
 [submodule "plugin-google/noto-emoji"]
 	path = plugin-google/noto-emoji
 	url = https://github.com/googlei18n/noto-emoji
+[submodule "plugin-openmoji/openmoji"]
+	path = plugin-openmoji/openmoji
+	url = https://github.com/hfg-gmuend/openmoji.git

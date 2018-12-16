@@ -9,7 +9,7 @@ import shutil
 # python ../scripts/generate_emoticon_qrc.py --provider twitter --dir twemoji --filename emoticons_twitter
 # python ../scripts/generate_emoticon_qrc.py --provider google --dir noto-emoji --filename emoticons_google
 # python ../scripts/generate_emoticon_qrc.py --provider emojione --dir EmojiOne_4.0_64x64_png --filename emoticons_emojione
-# python ../scripts/generate_emoticon_qrc.py --provider openmoji --dir openmoji-master --filename emoticons_openmoji
+# python ../scripts/generate_emoticon_qrc.py --provider openmoji --dir openmoji --filename emoticons_openmoji
 
 SUPPORTED_PROVIDERS = ['twitter','google','emojione','openmoji']
 
@@ -139,7 +139,7 @@ elif PROVIDER == 'emojione':
 	
 elif PROVIDER == 'openmoji':
 	openmojiPaths = [
-		DIR + '/color/svg',
+		#DIR + '/color/svg',
 		DIR + '/color/72x72'
 	]
 	for p in openmojiPaths:
