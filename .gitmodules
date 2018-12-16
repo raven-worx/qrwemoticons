@@ -1,0 +1,6 @@
+[submodule "plugin-twitter/twemoji"]
+	path = plugin-twitter/twemoji
+	url = https://github.com/twitter/twemoji.git
+[submodule "plugin-google/noto-emoji"]
+	path = plugin-google/noto-emoji
+	url = https://github.com/googlei18n/noto-emoji
