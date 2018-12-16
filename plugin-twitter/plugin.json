@@ -1,0 +1,14 @@
+{
+    "id": "twitter",
+    "name" : "Twitter Emoticons",
+    "version" : "1.0.0",
+    "author" : "raven-worx Software",
+    "url" : "http://www.raven-worx.net",
+    "copyright" : "(c)2019 raven-worx Software",
+    "description" : "Emoticon provider for Twitter (twemoji)",
+    "emoticons": {
+        "sizes" : ["svg"],
+        "source" : "Twitter",
+        "sourceUrl" : "https://github.com/twitter/twemoji"
+    }
+}
