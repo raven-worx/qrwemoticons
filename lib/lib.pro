@@ -24,7 +24,8 @@ SOURCES += \
     src/QrwEmoticons.cpp \
     src/QrwEmoticons_p.cpp \
     src/QrwEmoticons_data.cpp \
-    src/TextEdit.cpp
+    src/TextEdit.cpp \
+    src/QrwEmoticonsTextObjectInterface.cpp
 
 HEADERS += \
     ../include/QrwEmoticons/Global.h \
@@ -32,6 +33,7 @@ HEADERS += \
     ../include/QrwEmoticons/QrwEmoticons.h \
     ../include/QrwEmoticons/TextEdit.h \
     src/QrwEmoticons_p.h \
+    src/QrwEmoticonsTextObjectInterface_p.h
 
 # install to build directory
 target.path = ../build

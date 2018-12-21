@@ -18,6 +18,17 @@ QString QrwEmoticonsTextEdit::toPlainText() const
     return m_Emoticons->getPlainText();
 }
 
+QrwEmoticons* QrwEmoticonsTextEdit::emoticons() const
+{
+    return m_Emoticons;
+}
+
+void QrwEmoticonsTextEdit::relayout()
+{
+    QTextDocument* doc = this->document();
+    doc->markContentsDirty(0, doc->toPlainText().length());
+}
+
 QMimeData* QrwEmoticonsTextEdit::createMimeDataFromSelection() const
 {
     QTextCursor cursor = this->textCursor();

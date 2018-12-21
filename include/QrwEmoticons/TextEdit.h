@@ -4,8 +4,6 @@
 #include <QrwEmoticons/Global.h>
 #include <QTextEdit>
 
-// TODO: add private class
-
 class QrwEmoticons;
 
 class QRWEMOTICONS_EXPORT QrwEmoticonsTextEdit : public QTextEdit
@@ -17,6 +15,11 @@ public:
 
     QString	toHtml() const;
     QString	toPlainText() const;
+
+    QrwEmoticons* emoticons() const;
+
+public Q_SLOTS:
+    void relayout();
 
 protected:
     virtual QMimeData* createMimeDataFromSelection() const;

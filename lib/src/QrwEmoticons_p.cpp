@@ -1,4 +1,5 @@
 #include "QrwEmoticons_p.h"
+#include "QrwEmoticonsTextObjectInterface_p.h"
 #include <QLibraryInfo>
 #include <QCoreApplication>
 #include <QAbstractTextDocumentLayout>
@@ -7,9 +8,10 @@
 #include <QTextLayout>
 
 QrwEmoticonsPrivate::QrwEmoticonsPrivate(QrwEmoticons* q, QTextDocument* document)
-    : QObject(q), q_ptr(q), m_InApply(false), m_TextDocument(document), m_MaxEmoticonCharCodeCount(16)
+    : QObject(q), q_ptr(q), m_CurrentlyApplying(false), m_TextDocument(document)
+    , m_MaxEmoticonCharCodeCount(8), m_MinimumEmoticonSize(20,20)
 {
-    bool loaded = this->loadPlugin("emojione");
+    bool loaded = this->loadPlugin();
     Q_ASSERT( loaded );
 
     Q_ASSERT( m_TextDocument );
@@ -17,7 +19,8 @@ QrwEmoticonsPrivate::QrwEmoticonsPrivate(QrwEmoticons* q, QTextDocument* documen
     {
         connect(document, &QTextDocument::contentsChange, this, &QrwEmoticonsPrivate::onTextDocumentContentsChanged);
 
-        m_TextDocument->documentLayout()->registerHandler(QrwEmoticonsPrivate::EmoticonTextFormatObjectType, q_ptr);
+        QrwEmoticonsTextObjectInterface* interf = new QrwEmoticonsTextObjectInterface(this);
+        m_TextDocument->documentLayout()->registerHandler(QrwEmoticonsPrivate::EmoticonTextFormatObjectType, interf);
         this->applyTextCharFormat();
     }
 }
@@ -28,10 +31,47 @@ QrwEmoticonsPrivate::~QrwEmoticonsPrivate()
         m_PluginLoader.unload();
 }
 
+QString QrwEmoticonsPrivate::GetEmoticonString( const QrwEmoticons::Emoticon & code )
+{
+    QString emoticonStr;
+    for( int i = 0; i < code.size(); ++i )
+        emoticonStr += QrwEmoticonsPrivate::GetEmoticonString( code.at(i) );
+    return emoticonStr;
+}
+
+QString QrwEmoticonsPrivate::GetEmoticonString( uint character )
+{
+    QString emoticonStr;
+    if( QChar::requiresSurrogates(character) )
+    {
+        QChar chars[] = {
+            QChar(QChar::highSurrogate(character)),
+            QChar(QChar::lowSurrogate(character))
+        };
+        emoticonStr = QString(chars,2);
+    }
+    else
+        emoticonStr = QChar(character);
+
+    return emoticonStr;
+}
+
 void QrwEmoticonsPrivate::onTextDocumentContentsChanged(int position, int /*charsRemoved*/, int charsAdded)
 {
     if( charsAdded > 0 )
         this->applyTextCharFormat( position );
+}
+
+bool QrwEmoticonsPrivate::isEmoticon( uint character )
+{
+    return this->isEmoticon( QrwEmoticons::Emoticon() << character );
+}
+
+bool QrwEmoticonsPrivate::isEmoticon( const QrwEmoticons::Emoticon & code )
+{
+    if( code.isEmpty() )
+        return false;
+    return EMOTICONS.contains( code );
 }
 
 QrwEmoticons::Emoticon QrwEmoticonsPrivate::getEmoticonCode( QTextCursor c, int* selectionLength )
@@ -49,7 +89,7 @@ QrwEmoticons::Emoticon QrwEmoticonsPrivate::getEmoticonCode( QTextCursor c, int*
     //  QTextCursor::movePosition(QTextCursor::NextCharacter) can increase the actual
     //  selected characters by more than one, so we are checking the selection here
     //  instead of simply iterating to the max count
-    while( c.selectedText().length() < m_MaxEmoticonCharCodeCount )
+    while( c.selectedText().length() < (m_MaxEmoticonCharCodeCount*2) )
     {
         if( NOT c.movePosition( QTextCursor::NextCharacter, QTextCursor::KeepAnchor, 1) )
             break;
@@ -91,7 +131,7 @@ QrwEmoticons::Emoticon QrwEmoticonsPrivate::getEmoticonCode( QTextCursor c, int*
                 break;
         }
 
-        if( this->IsEmoticon(code) )
+        if( this->isEmoticon(code) )
         {
             if( selectionLength )
                 *selectionLength = selection.length();
@@ -104,43 +144,6 @@ QrwEmoticons::Emoticon QrwEmoticonsPrivate::getEmoticonCode( QTextCursor c, int*
     }
 
     return QrwEmoticons::Emoticon();
-}
-
-QString QrwEmoticonsPrivate::GetEmoticonString( const QrwEmoticons::Emoticon & code )
-{
-    QString emoticonStr;
-    for( int i = 0; i < code.size(); ++i )
-        emoticonStr += QrwEmoticonsPrivate::GetEmoticonString( code.at(i) );
-    return emoticonStr;
-}
-
-QString QrwEmoticonsPrivate::GetEmoticonString( uint character )
-{
-    QString emoticonStr;
-    if( QChar::requiresSurrogates(character) )
-    {
-        QChar chars[] = {
-            QChar(QChar::highSurrogate(character)),
-            QChar(QChar::lowSurrogate(character))
-        };
-        emoticonStr = QString(chars,2);
-    }
-    else
-        emoticonStr = QChar(character);
-
-    return emoticonStr;
-}
-
-bool QrwEmoticonsPrivate::IsEmoticon( uint character )
-{
-    return this->IsEmoticon( QrwEmoticons::Emoticon() << character );
-}
-
-bool QrwEmoticonsPrivate::IsEmoticon( const QrwEmoticons::Emoticon & code )
-{
-    if( code.isEmpty() )
-        return false;
-    return EMOTICONS.contains( code );
 }
 
 QString QrwEmoticonsPrivate::getDocumentText( bool html ) const
@@ -230,10 +233,10 @@ QString QrwEmoticonsPrivate::getCursorText( const QTextCursor & cursor, bool htm
 
 void QrwEmoticonsPrivate::applyTextCharFormat(int pos)
 {
-    if( m_InApply )
+    if( m_CurrentlyApplying )
         return;
 
-    m_InApply = true; //make sure we do not create a recursion
+    m_CurrentlyApplying = true; // recursion protection
     const bool isModified = m_TextDocument->isModified();
 
     QTextCursor c( m_TextDocument );
@@ -267,7 +270,7 @@ void QrwEmoticonsPrivate::applyTextCharFormat(int pos)
     c.endEditBlock();
 
     m_TextDocument->setModified( isModified );
-    m_InApply = false;
+    m_CurrentlyApplying = false;
 }
 
 bool QrwEmoticonsPrivate::loadPlugin(const QString & id)
@@ -311,7 +314,7 @@ bool QrwEmoticonsPrivate::loadPlugin(const QString & id)
             {
                 if( QrwEmoticonsPluginInterface* pluginInterface = qobject_cast<QrwEmoticonsPluginInterface*>(m_PluginLoader.instance()) )
                 {
-                    m_Plugin.interface = pluginInterface;
+                    m_Plugin.interf = pluginInterface;
                     m_Plugin.metaData = metaData;
                     return true;
                 }
@@ -332,12 +335,11 @@ int QrwEmoticonsPrivate::getLineHeight(int posInDocument, const QTextFormat & fo
             //return int(blockFormat.lineHeight());
 
             QTextBlock block = m_TextDocument->findBlock(posInDocument);
-            int h = block.layout()->lineAt(0).height();
+            int h = qRound(block.layout()->lineAt(0).height());
 
             qDebug() << blockFormat.lineHeight() << h;
             return h;
         }
-        break;
         case QTextFormat::CharFormat:
         {
             QTextCharFormat charFormat = format.toCharFormat();
@@ -345,14 +347,12 @@ int QrwEmoticonsPrivate::getLineHeight(int posInDocument, const QTextFormat & fo
 
             int h = font.pixelSize();
             if( h == -1 )
-                h = qRound(font.pointSizeF() * 1.33333);
+                h = qRound(font.pointSizeF() * 1.33333); // pt -> px
 
             return h;
         }
-        break;
         default:
             Q_ASSERT( false );
-            return 16;
-        break;
+            return 20;
     }
 }

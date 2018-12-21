@@ -110,8 +110,8 @@ def traverseFiles(path, fileNameTransform=None):
 
 if PROVIDER == 'twitter':
 	twitterPaths = [
-		DIR + '/2/svg',
-		DIR + '/2/72x72'
+		DIR + '/2/svg'
+		#DIR + '/2/72x72',
 	]
 	for p in twitterPaths:
 		if os.path.isdir(p):
@@ -121,12 +121,12 @@ if PROVIDER == 'twitter':
 	
 elif PROVIDER == 'google':
 	googlePaths = [
-		#DIR + '/svg',
-		DIR + '/png/128'
+		#DIR + '/png/128'
+		DIR + '/svg'
 	]
 	for p in googlePaths:
 		if os.path.isdir(p):
-			traverseFiles(p, fileNameTransform)
+			traverseFiles(p, googleFileNameTransform)
 		else:
 			sys.stderr.write("'" + p + "' is not a directory")
 	
@@ -139,8 +139,8 @@ elif PROVIDER == 'emojione':
 	
 elif PROVIDER == 'openmoji':
 	openmojiPaths = [
-		#DIR + '/color/svg',
-		DIR + '/color/72x72'
+		DIR + '/color/svg'
+		#DIR + '/color/72x72'
 	]
 	for p in openmojiPaths:
 		if os.path.isdir(p):

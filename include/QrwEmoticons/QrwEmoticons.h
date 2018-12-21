@@ -7,15 +7,13 @@
 
 class QrwEmoticonsPrivate;
 
-class QRWEMOTICONS_EXPORT QrwEmoticons : public QObject, public QTextObjectInterface
+class QRWEMOTICONS_EXPORT QrwEmoticons : public QObject
 {
     Q_OBJECT
-    Q_INTERFACES(QTextObjectInterface)
 
-    Q_PROPERTY( QString plugin READ plugin WRITE setPlugin NOTIFY pluginChanged )
-    //Q_PROPERTY( int maxCharCount READ maxCharCount WRITE setMaxCharCount NOTIFY maxCharCountChanged )
-    //Q_PROPERTY( QSize minimumSize READ minimumSize WRITE setMinimumSize NOTIFY minimumSizeChanged )
-    //Q_PROPERTY( bool svgEnabled READ svgEnabled WRITE setSvgEnabled NOTIFY svgEnabledChanged )
+    Q_PROPERTY( QString provider READ provider WRITE setProvider NOTIFY providerChanged )
+    Q_PROPERTY( int maximumEmoticonCharCount READ maximumEmoticonCharCount WRITE setMaximumEmoticonCharCount NOTIFY maximumEmoticonCharCountChanged )
+    Q_PROPERTY( QSize minimumEmoticonSize READ minimumEmoticonSize WRITE setMinimumEmoticonSize NOTIFY minimumEmoticonSizeChanged )
 
     QRWEMOTICONS_DECLARE_PRIVATE(QrwEmoticons)
 
@@ -30,15 +28,17 @@ public:
     QString getHtml() const;
     QString getHtml(const QTextCursor & cursor) const;
 
-    // QTextObjectInterface interface
-    virtual void drawObject(QPainter* painter, const QRectF & rect, QTextDocument* doc, int posInDocument, const QTextFormat & format) Q_DECL_OVERRIDE;
-    virtual QSizeF intrinsicSize(QTextDocument* doc, int posInDocument, const QTextFormat & format) Q_DECL_OVERRIDE;
-
-    QString plugin() const;
-    void setPlugin(const QString & plugin);
+    QString provider() const;
+    void setProvider(const QString & provider);
+    quint8 maximumEmoticonCharCount() const;
+    void setMaximumEmoticonCharCount(quint8 count);
+    QSize minimumEmoticonSize() const;
+    void setMinimumEmoticonSize(const QSize & size);
 
 Q_SIGNALS:
-    void pluginChanged(const QString & plugin);
+    void providerChanged(const QString & provider);
+    void maximumEmoticonCharCountChanged(quint8 maximumEmoticonCharCount);
+    void minimumEmoticonSizeChanged(const QSize & minimumEmoticonSize);
 };
 
 Q_DECLARE_METATYPE(QrwEmoticons::Emoticon)
