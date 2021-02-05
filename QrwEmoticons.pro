@@ -3,7 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     plugin-google \
     plugin-twitter \
-    plugin-emojione \
+    plugin-joypixels \
     plugin-openmoji \
     lib
  

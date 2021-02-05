@@ -8,10 +8,10 @@ import shutil
 
 # python ../scripts/generate_emoticon_qrc.py --provider twitter --dir twemoji --filename emoticons_twitter
 # python ../scripts/generate_emoticon_qrc.py --provider google --dir noto-emoji --filename emoticons_google
-# python ../scripts/generate_emoticon_qrc.py --provider emojione --dir EmojiOne_4.0_64x64_png --filename emoticons_emojione
+# python ../scripts/generate_emoticon_qrc.py --provider joypixels --dir joypixels_emoticons_6.5 --filename emoticons_joypixels
 # python ../scripts/generate_emoticon_qrc.py --provider openmoji --dir openmoji --filename emoticons_openmoji
 
-SUPPORTED_PROVIDERS = ['twitter','google','emojione','openmoji']
+SUPPORTED_PROVIDERS = ['twitter','google','joypixels','openmoji']
 
 #
 # PARSE ARGUMENTS
@@ -130,12 +130,17 @@ elif PROVIDER == 'google':
 		else:
 			sys.stderr.write("'" + p + "' is not a directory")
 	
-elif PROVIDER == 'emojione':
-	emojionePath = DIR
-	if os.path.isdir(emojionePath):
-		traverseFiles(emojionePath, fileNameTransform)
-	else:
-		sys.stderr.write("'" + emojionePath + "' is not a directory")
+elif PROVIDER == 'joypixels':
+	joypixelsPaths = [
+		#DIR + '/png/unicode/32'
+		DIR + '/png/unicode/64'
+		#DIR + '/png/unicode/128'
+	]
+	for p in joypixelsPaths:
+		if os.path.isdir(p):
+			traverseFiles(p, fileNameTransform)
+		else:
+			sys.stderr.write("'" + p + "' is not a directory")
 	
 elif PROVIDER == 'openmoji':
 	openmojiPaths = [

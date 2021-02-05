@@ -1,0 +1,14 @@
+{
+    "id": "joypixels",
+    "name" : "JoyPixels Emoticons",
+    "version" : "1.0.0",
+    "author" : "raven-worx Software",
+    "url" : "http://www.raven-worx.net",
+    "copyright" : "(c)2021 raven-worx Software",
+    "description" : "Emoticons provided by JoyPixels",
+    "provider": {
+        "sizes" : ["64x64"],
+        "name" : "JoyPixels",
+        "url" : "https://www.joypixels.com"
+    }
+}

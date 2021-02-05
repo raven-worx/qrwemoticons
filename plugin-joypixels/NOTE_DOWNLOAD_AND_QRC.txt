@@ -1,0 +1,4 @@
+1) Download JoyPixel emoticons (FREE or PREMIUM) from https://www.joypixels.com/download
+2) extract the archive (e.g. into the folder "joypixels_emoticons_6.5" inside this plugin directory)
+3) run the generate_emoticon_qrc.py script to generate the qrc files
+	python ../scripts/generate_emoticon_qrc.py --provider joypixels --dir joypixels_emoticons_6.5 --filename emoticons_joypixels
