@@ -7,21 +7,17 @@
 EmoticonGooglePlugin::EmoticonGooglePlugin(QObject* parent)
     : QrwEmoticonsPluginInterface(parent)
 {
-    Q_INIT_RESOURCE(emoticons_google_0);
-    Q_INIT_RESOURCE(emoticons_google_1);
-    Q_INIT_RESOURCE(emoticons_google_2);
+    //Q_INIT_RESOURCE(emoticons_google_X);
 }
 
 EmoticonGooglePlugin::~EmoticonGooglePlugin()
 {
-    //Q_CLEANUP_RESOURCE(emoticons_google_0);
-    //Q_CLEANUP_RESOURCE(emoticons_google_1);
-    //Q_CLEANUP_RESOURCE(emoticons_google_2);
+    //Q_CLEANUP_RESOURCE(emoticons_google_X);
 }
 
 QString EmoticonGooglePlugin::getEmoticonPath(const QrwEmoticons::Emoticon &code) const
 {
-    // Google doesn't add variation selectors (0xFE0E and 0xFE0F) to their filenames?!
+    // Google-Noto doesn't add variation selectors (0xFE0E and 0xFE0F) to their filenames?!
     QrwEmoticons::Emoticon c = code;
         c.removeAll(0xFE0E);
         c.removeAll(0xFE0F);

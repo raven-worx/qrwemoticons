@@ -5,9 +5,7 @@ QT += core svg xml
 TARGET = $$qtLibraryTarget(emoticons_google)
 
 RESOURCES += \
-    emoticons_google_0.qrc \
-    emoticons_google_1.qrc \
-    emoticons_google_2.qrc
+    $$files(*.qrc)
 
 INCLUDEPATH += \
     ../include \

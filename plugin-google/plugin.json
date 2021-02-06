@@ -4,11 +4,11 @@
     "version" : "1.0.0",
     "author" : "raven-worx Software",
     "url" : "http://www.raven-worx.net",
-    "copyright" : "(c)2019 raven-worx Software",
-    "description" : "Emoticon provider for Google (noto-emoji)",
-    "emoticons": {
+    "copyright" : "(c)2021 raven-worx Software",
+    "description" : "Emoticons provided by Google's Noto-Emoji",
+    "provider": {
         "sizes" : ["svg"],
-        "source" : "Google",
-        "sourceUrl" : "https://github.com/googlei18n/noto-emoji"
+        "name" : "Google Noto-Emoji",
+        "url" : "https://github.com/googlei18n/noto-emoji"
     }
 }
