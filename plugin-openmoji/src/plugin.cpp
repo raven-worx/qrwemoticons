@@ -4,14 +4,12 @@
 EmoticonOpenmojiPlugin::EmoticonOpenmojiPlugin(QObject* parent)
     : QrwEmoticonsPluginInterface(parent)
 {
-    Q_INIT_RESOURCE(emoticons_openmoji_0);
-    Q_INIT_RESOURCE(emoticons_openmoji_1);
+    //Q_INIT_RESOURCE(emoticons_openmoji_X);
 }
 
 EmoticonOpenmojiPlugin::~EmoticonOpenmojiPlugin()
 {
-    //Q_CLEANUP_RESOURCE(emoticons_openmoji_0);
-    //Q_CLEANUP_RESOURCE(emoticons_openmoji_1);
+    //Q_CLEANUP_RESOURCE(emoticons_openmoji_X);
 }
 
 QString EmoticonOpenmojiPlugin::getEmoticonPath(const QrwEmoticons::Emoticon &code) const

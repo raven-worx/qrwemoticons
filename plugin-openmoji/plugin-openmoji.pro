@@ -5,8 +5,7 @@ QT += core svg xml
 TARGET = $$qtLibraryTarget(emoticons_openmoji)
 
 RESOURCES += \
-    emoticons_openmoji_0.qrc \
-    emoticons_openmoji_1.qrc
+    $$files(*.qrc)
 
 INCLUDEPATH += \
     ../include \
