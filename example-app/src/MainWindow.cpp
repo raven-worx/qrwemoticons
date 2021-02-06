@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     QToolBar* toolBar = this->addToolBar("");
 
     QComboBox* providerComboBox = new QComboBox( toolBar );
-        providerComboBox->addItems( QStringList() << "google" << "twitter" << "openmoji" << "emojione" );
+        providerComboBox->addItems( QStringList() << "google" << "twitter" << "openmoji" << "joypixels" );
         providerComboBox->setCurrentText( textEdit->emoticons()->provider() );
     connect( providerComboBox, &QComboBox::currentTextChanged, this, [textEdit](const QString & text) {
         textEdit->emoticons()->setProvider(text);
@@ -32,4 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
         textEdit->setFont( font );
     } );
     toolBar->addWidget( fontSizeSpinBox );
+
+    QLabel* noticeLabel = new QLabel( toolBar );
+        noticeLabel->setOpenExternalLinks(true);
+        noticeLabel->setText("Copy & paste emoticons from <a href=\"https://unicode.org/emoji/charts/full-emoji-list.html\">https://unicode.org/emoji/charts/full-emoji-list.html</a>");
+    toolBar->addWidget( noticeLabel );
 }
