@@ -1,6 +1,8 @@
 QrwEmoticons
 =============
-Qt5 (Widgets) Emoticon library and plugins
+Qt5 (Widgets) Emoticon library and plugins.
+
+Since its pure Qt code you can use it on almost any platform.
 
 Features
 -------------
@@ -18,9 +20,14 @@ How-To Build
     git clone 
     cd qrwemoticons
     git submodule update --init --recursice
-    qmake QrwEmoticons.pro
-    make
-    make install # install to Qt directory
+    
+Build with QtCreator or manually with qmake and make.
+
+How-To Use
+-------------
+Link your application against the QrwEmoticons library. For a usage example see the "example-app" project.
+
+The emoticons plugins are loaded from the "emoticons" folder in [Qt's plugin search locations](https://doc.qt.io/qt-5/deployment-plugins.html#the-plugin-directory). For example create a "emoticons" folder next to your application binary or in the Qt installation directory and copy the plugins there. 
 
 Update scripts
 -------------
@@ -44,6 +51,7 @@ Known issues
 -------------
 
 Unfortunately Qt's SVG rendering capabilities are not mature enough to render Google Noto-Emoji icons properly.
+Only known workaround is stepping back in the noto submodule to a certain commit when rendering was still working. 
 
 License
 -------------
