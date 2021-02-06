@@ -4,11 +4,11 @@
     "version" : "1.0.0",
     "author" : "raven-worx Software",
     "url" : "http://www.raven-worx.net",
-    "copyright" : "(c)2019 raven-worx Software",
-    "description" : "Emoticon provider for Twitter (twemoji)",
-    "emoticons": {
+    "copyright" : "(c)2021 raven-worx Software",
+    "description" : "Emoticons provided by Twitter's twemoji",
+    "provider": {
         "sizes" : ["svg"],
-        "source" : "Twitter",
-        "sourceUrl" : "https://github.com/twitter/twemoji"
+        "name" : "Twitter",
+        "url" : "https://github.com/twitter/twemoji"
     }
 }

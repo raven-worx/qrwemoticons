@@ -4,14 +4,12 @@
 EmoticonTwitterPlugin::EmoticonTwitterPlugin(QObject* parent)
     : QrwEmoticonsPluginInterface(parent)
 {
-    Q_INIT_RESOURCE(emoticons_twitter_0);
-    Q_INIT_RESOURCE(emoticons_twitter_1);
-    Q_INIT_RESOURCE(emoticons_twitter_2);
+    //Q_INIT_RESOURCE(emoticons_twitter_X);
 }
 
 EmoticonTwitterPlugin::~EmoticonTwitterPlugin()
 {
-    //Q_CLEANUP_RESOURCE(emoticons_twitter);
+    //Q_CLEANUP_RESOURCE(emoticons_twitter_X);
 }
 
 QString EmoticonTwitterPlugin::getEmoticonPath(const QrwEmoticons::Emoticon &code) const

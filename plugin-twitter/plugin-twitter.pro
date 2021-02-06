@@ -5,9 +5,7 @@ QT += core svg xml
 TARGET = $$qtLibraryTarget(emoticons_twitter)
 
 RESOURCES += \
-    emoticons_twitter_0.qrc \
-    emoticons_twitter_1.qrc \
-    emoticons_twitter_2.qrc
+    $$files(*.qrc)
 
 INCLUDEPATH += \
     ../include \
