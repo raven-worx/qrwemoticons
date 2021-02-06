@@ -22,7 +22,7 @@ parser.add_argument('-d', '--dir', action='store', dest='DIR', type=str, require
                     help='Absolute path to base directory containing the emoticon icon files')
 parser.add_argument('-p', '--provider', action='store', dest='PROVIDER', type=str, required=True,
                     help='[' + '|'.join(SUPPORTED_PROVIDERS) + ']')
-parser.add_argument('-b', '--batch', action='store', dest='BATCH', type=int, required=False, default=1000,
+parser.add_argument('-b', '--batch', action='store', dest='BATCH', type=int, required=False, default=500,
                     help='Batch size of emoticon files to prevent too big .qrc files')
 parser.add_argument('-f', '--filename', action='store', dest='FILENAME', type=str, required=True,
                     help='Base name of the output .qrc file')
@@ -110,7 +110,7 @@ def traverseFiles(path, fileNameTransform=None):
 
 if PROVIDER == 'twitter':
 	twitterPaths = [
-		DIR + '/2/svg'
+		DIR + '/assets/svg'
 		#DIR + '/2/72x72',
 	]
 	for p in twitterPaths:
