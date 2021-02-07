@@ -4,6 +4,10 @@ Qt5 (Widgets) Emoticon library and plugins.
 
 Since its pure Qt code you can use it on almost any platform.
 
+
+![](https://github.com/raven-worx/qrwemoticons/blob/master/demo.gif)
+
+
 Features
 -------------
 
@@ -19,7 +23,7 @@ How-To Build
 
     git clone 
     cd qrwemoticons
-    git submodule update --init --recursice
+    git submodule update --init --recursive
     
 Build with QtCreator or manually with qmake and make.
 
